@@ -10,7 +10,7 @@
     </script>
     
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IVSA KONYA - II. Veteriner Klinik Bilimleri Kolokyumu</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -39,15 +39,12 @@
             flex-direction: column;
         }
 
-        /* --- ARKA PLAN (SABİT KALIR) --- */
+        /* --- ARKA PLAN (SABİT) --- */
         .fixed-background {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
-            
-            /* RESİM */
             background-image: url('back.jpeg'); 
-            
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -116,7 +113,7 @@
         
         .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-white); cursor: pointer; }
 
-        /* --- İÇERİK ALANI --- */
+        /* --- İÇERİK --- */
         main {
             flex: 1;
             display: flex;
@@ -221,7 +218,7 @@
 
         @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-        /* Grid */
+        /* Grid (Yan yana kutular) */
         .grid-layout {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -250,43 +247,29 @@
         }
 
         /* ========================================= */
-        /* MOBİL UYUMLULUK (STANDART KAYDIRMA)      */
+        /* MOBİL UYUMLULUK (DÜZELTİLMİŞ APP MODU)   */
         /* ========================================= */
         @media (max-width: 1024px) {
             
-            /* 1. App modunu iptal et, normal kaydırmayı aç */
+            /* 1. Sayfa Kaymasını Kilitle */
             html, body {
-                overflow: auto;
-                position: static;
-                height: auto;
+                overflow: hidden; 
+                height: 100%;     
+                width: 100%;
+                position: fixed; /* iOS için titremeyi önler */
             }
 
-            /* Arka planı sabitle (Parallax etkisi) */
+            /* Arka Planı Ekrana Sığdır */
             .fixed-background {
+                background-size: contain;   
+                background-position: center center; 
+                background-repeat: no-repeat; 
                 background-attachment: fixed;
-                background-size: cover;
-                background-position: center;
+                background-color: var(--bg-dark); /* Resim kenarlarında boşluk kalırsa lacivert olsun */
             }
 
-            /* 2. Menü */
-            .menu-toggle {
-
-                display: block;
-                position: fixed; /* Ekrana çiviler */
-                top: 20px;       /* Yukarıdan boşluk */
-                right: 20px;     /* Sağdan boşluk */
-                z-index: 10002;  /* Menünün de üstünde kalsın */
-                
-                /* Butonun arka planı olsun ki karışmasın */
-                background: rgba(2, 11, 22, 0.8);
-                width: 45px;
-                height: 45px;
-                line-height: 45px;
-                text-align: center;
-                border-radius: 5px;
-                border: 1px solid rgba(255,255,255,0.2);
-                
-            }
+            /* 2. Menü Ayarları */
+            .menu-toggle { display: block; z-index: 10001; }
             nav ul {
                 display: none;
                 flex-direction: column;
@@ -297,56 +280,73 @@
                 border-bottom: 2px solid var(--accent-gold);
                 text-align: center;
                 gap: 15px;
-                z-index: 9999;
+                z-index: 10000;
             }
             nav ul.show { display: flex; }
 
-            /* 3. Ana İçerik Alanı */
+            /* 3. İçerik Alanı (Header ve Footer arasına sıkıştır) */
             main {
-                display: block; /* Flex'i kaldır, normal akış olsun */
-                height: auto;
-                min-height: 100vh;
-                padding-top: 20px;
-                padding-bottom: 80px; /* Footer payı */
+                position: absolute; /* Fixed yerine absolute daha güvenli */
+                top: 80px;    /* Header yüksekliği kadar boşluk */
+                bottom: 60px; /* Footer yüksekliği kadar boşluk */
+                left: 0; 
+                right: 0;
+                padding: 0 15px; /* Yanlardan boşluk */
+                display: flex;
+                align-items: center; 
+                justify-content: center;
+                overflow: hidden; /* Dışarı taşmayı engelle */
             }
 
-            /* 4. İçerik Kutusu */
+            /* 4. İçerik Kutusu (Asıl kayan kısım burası) */
             .glass-box {
-                /* Yükseklik sınırını kaldır, ne kadar yazı varsa o kadar uzasın */
-                max-height: none; 
-                overflow: visible; 
-                height: auto;
-                margin-bottom: 30px; /* Altına boşluk bırak */
+                width: 100%;
+                /* Kutunun yüksekliği Header ve Footer arasındaki boşluğu doldursun */
+                max-height: 100%; 
+                overflow-y: auto; /* Sadece bu kutu kaysın */
+                padding: 20px;
+                margin: 0;
+                /* Mobilde kutu arkasını biraz daha koyu yap, yazılar karışmasın */
+                background: rgba(2, 11, 22, 0.85); 
             }
 
-            /* 5. Izgara (Mobilde Alt Alta) */
+            /* 5. Izgara (Grid) Düzeltmesi */
+            /* Mobilde yan yana değil, alt alta olsunlar ki bozulmasın */
             .grid-layout {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                grid-template-columns: 1fr; /* Tek sütun */
+                gap: 15px;
             }
 
-            /* 6. Ana Sayfa */
+            /* 6. Ana Sayfa Mobilde */
             #home-page {
                 flex-direction: column-reverse;
                 text-align: center;
-                gap: 30px;
-                margin-top: 30px;
+                justify-content: center;
+                gap: 15px;
+                height: 100%;
+                overflow-y: auto; /* Ana sayfa da taşarsa kaysın */
             }
             
             .hero-logo { margin: 0 auto 10px auto; max-width: 180px; }
-            .hero-title { font-size: 2rem; }
-            .hero-img-container { justify-content: center; }
-            .hero-img { max-width: 250px; } 
-            .hero-info { border-left: none; align-items: center; }
+            .hero-title { font-size: 1.8rem; margin-bottom: 10px; }
+            .hero-img-container { justify-content: center; flex: 0 0 auto; }
+            .hero-img { max-width: 220px; } 
+            .hero-info { border-left: none; align-items: center; font-size: 1rem; }
+            .hashtag { margin-top: 15px; font-size: 1rem; }
 
-            /* 7. Footer (Altta Sabit) */
+            /* 7. Footer Mobilde Sabit */
             footer {
                 position: fixed;
                 bottom: 0;
                 left: 0;
                 width: 100%;
                 background: rgba(2, 11, 22, 0.95);
+                padding: 15px;
                 z-index: 100;
+                height: 60px; /* Sabit yükseklik */
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
     </style>
@@ -382,12 +382,12 @@
         <div id="home-page" class="content-page active">
             <div class="hero-text">
                 <img src="logo.svg" alt="IVSA Konya Logo" class="hero-logo">
-                <h1 class="hero-title">IVSA KONYA<br>II. VETERİNER KLİNİK<br>BİLİMLERİ KOLOKYUMU</h1>
+                <h1 class="hero-title">II. VETERİNER KLİNİK<br>BİLİMLERİ KOLOKYUMU</h1>
                 <div class="hero-info">
                     <span><i class="far fa-calendar-alt" style="color:var(--accent-gold); margin-right:10px;"></i> 18-19 NİSAN 2026</span>
                     <span><i class="fas fa-map-marker-alt" style="color:var(--accent-gold); margin-right:10px;"></i> SELÇUK ÜNİVERSİTESİ</span>
                 </div>
-              <div class="hashtag">#HerDaimİleri</div>
+                <div class="hashtag">#HerDaimİleri</div>
             </div>
             <div class="hero-img-container">
                 <img src="asa.png" class="hero-img" alt="Sembol">
@@ -400,7 +400,7 @@
                 <p style="line-height: 1.8; color: #ddd;">
                     Değerli Meslektaşlarımız,<br><br>
                     IVSA Konya olarak düzenlediğimiz II. Veteriner Klinik Bilimleri Kolokyumu'nda sizleri aramızda görmekten mutluluk duyarız.
-                       <br><br>
+                    Tasarımımızın modern çizgileri içerisinde, bilimsel doyuruculuğu yüksek bir program hazırladık.<br><br>
                 </p>
             </div>
         </div>
@@ -501,6 +501,15 @@
             document.querySelectorAll('.content-page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.getElementById('nav-list').classList.remove('show');
+            
+            // Scroll'u en başa al (İçerik kutusu için)
+            const activeBox = document.querySelector('.content-page.active .glass-box');
+            if(activeBox) activeBox.scrollTop = 0;
+            
+            // Ana sayfa için de scrollu sıfırla
+            const homePage = document.getElementById('home-page');
+            if(homePage) homePage.scrollTop = 0;
+
             window.scrollTo(0,0);
         }
         function toggleMenu() {

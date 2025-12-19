@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVSA KONYA - II. Veteriner Klinik Bilimleri Kolokyumu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- TASARIM DEĞİŞKENLERİ --- */
+        :root {
+            --bg-dark: #020b16; 
+            --bg-gradient: radial-gradient(circle at 50% 30%, #1b3a5f 0%, #020b16 70%);
+            --accent-blue: #00aaff;
+            --accent-gold: #d4af37;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Montserrat', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- ARKA PLAN (SABİT TASARIM) --- */
+        .fixed-background {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-gradient);
+            z-index: -2;
+        }
+
+        /* Poster üzerindeki o ince çizgiler/noktalar efekti */
+        .fixed-background::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        /* --- HEADER (MENÜ) --- */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(2, 11, 22, 0.8); /* Hafif şeffaf */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container img { height: 45px; cursor: pointer; }
+
+        /* Masaüstü Linkleri */
+        nav ul { display: flex; gap: 20px; }
+        nav ul li a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        nav ul li a:hover, nav ul li a.active-btn {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+        }
+
+        /* Mobil Hamburger */
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent-gold); }
+
+        /* --- İÇERİK ALANI --- */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center; /* Dikey ortalama */
+            justify-content: center;
+            padding: 40px 5%;
+            position: relative;
+        }
+
+        /* Tüm Sayfalar Başlangıçta Gizli */
+        .content-page {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .content-page.active {
+            display: block; /* Sadece aktif olan görünür */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ANA SAYFA (POSTER GÖRÜNÜMÜ) --- */
+        #home-page {
+            display: flex; /* Flex yapısı */
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            text-align: left;
+            width: 100%;
+        }
+        
+        #home-page.active {
+            display: flex; /* Active olunca flex olarak görünmeli */
+        }
+
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-img-container { flex: 1; display: flex; justify-content: flex-end; min-width: 300px; }
+
+        .hero-subtitle { color: var(--accent-blue); letter-spacing: 3px; font-weight: bold; font-size: 1.2rem; margin-bottom: 10px;}
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-details { font-size: 1.2rem; border-left: 4px solid var(--accent-gold); padding-left: 15px; margin-top: 20px; }
+        .hashtag { margin-top: 30px; font-size: 1.5rem; color: rgba(255,255,255,0.5); }
+
+        .hero-img {
+            max-width: 450px;
+            width: 100%;
+            filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.2));
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
+
+        /* --- DİĞER SAYFALAR İÇİN "GLASS" KUTULAR --- */
+        .glass-box {
+            background: rgba(2, 11, 22, 0.6); /* Arka planı hafif karart */
+            backdrop-filter: blur(15px); /* Buzlu cam efekti */
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2.page-title {
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h2.page-title::after {
+            content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--accent-blue), transparent);
+        }
+
+        /* Izgara Yapısı (Grid) */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--accent-gold); transform: translateY(-5px); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* --- MOBİL UYUMLULUK --- */
+        @media (max-width: 1024px) {
+            .menu-toggle { display: block; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px; left: 0; width: 100%;
+                background: #020b16;
+                padding: 20px;
+                border-bottom: 2px solid var(--accent-gold);
+                text-align: center;
+            }
+            nav ul.show { display: flex; }
+            
+            #home-page {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 40px;
+            }
+            .hero-title { font-size: 2.5rem; }
+            .hero-img-container { justify-content: center; }
+            .hero-details { border-left: none; border-top: 2px solid var(--accent-gold); padding-top: 15px; padding-left: 0; display: inline-block;}
+            .glass-box { padding: 20px; }
+        }
+
+      /* Masaüstü Linkleri - SEÇENEK 2 (Buzlu Cam) */
+nav ul { display: flex; gap: 10px; }
+
+nav ul li a {
+    font-size: 0.85rem;
+    color: #eee;
+    text-decoration: none;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.05); /* Çok hafif arka plan */
+    border-radius: 50px; /* Yuvarlak kenarlar */
+    transition: all 0.3s;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+nav ul li a:hover, nav ul li a.active-btn {
+    background: var(--accent-blue); /* Mavi arka plan */
+    color: #fff;
+    transform: translateY(-2px); /* Hafif yukarı zıplama */
+    box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+}
+    </style>
+</head>
+<body>
+
+    <div class="fixed-background"></div>
+
+    <header>
+        <div class="logo-container" onclick="showPage('home-page')">
+            <img src="logo.png" alt="Logo">
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+
+        <nav>
+            <ul id="nav-list">
+                <li><a onclick="showPage('davet-page')">Davet</a></li>
+                <li><a onclick="showPage('kurullar-page')">Kurullar</a></li>
+                <li><a onclick="showPage('bilimsel-page')">Bilimsel Program</a></li>
+                <li><a onclick="showPage('kayit-page')">Kayıt & Konaklama</a></li>
+                <li><a onclick="showPage('konusmacilar-page')">Konuşmacılar</a></li>
+                <li><a onclick="showPage('sponsorlar-page')">Sponsorlar</a></li>
+                <li><a onclick="showPage('genel-page')">Genel Bilgiler</a></li>
+                <li><a onclick="showPage('iletisim-page')">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        
+        <div id="home-page" class="content-page active">
+            <div class="hero-text">
+                <div class="hero-subtitle">IVSA KONYA</div>
+                <h1 class="hero-title">II. VETERİNER KLİNİK<br>BİLİMLERİ KOLOKYUMU</h1>
+                <div class="hero-details">
+                    <p><i class="far fa-calendar-alt" style="color:var(--accent-gold)"></i> 18-19 NİSAN 2026</p>
+                    <p style="margin-top:5px;"><i class="fas fa-map-marker-alt" style="color:var(--accent-gold)"></i> SELÇUK ÜNİVERSİTESİ</p>
+                </div>
+                <div class="hashtag">#HerDaimİleri</div>
+            </div>
+            <div class="hero-img-container">
+                <img src="https://via.placeholder.com/500x500/000000/d4af37?text=ASA+GORSELI" class="hero-img" alt="Asa">
+            </div>
+        </div>
+
+        <div id="davet-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">Davet Mektubu</h2>
+                <p style="line-height: 1.8; color: #ddd;">
+                    Değerli Meslektaşlarımız,<br><br>
+                    IVSA Konya olarak düzenlediğimiz II. Veteriner Klinik Bilimleri Kolokyumu'nda sizleri aramızda görmekten mutluluk duyarız.
+                    Tasarımımızın modern çizgileri içerisinde, bilimsel doyuruculuğu yüksek bir program hazırladık.<br><br>
+                    
+                </p>
+            </div>
+        </div>
+
+        <div id="kurullar-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">Kurullar</h2>
+                <div class="grid-layout">
+                    <div class="card">
+                        <h3 style="color:var(--accent-blue)">Düzenleme Kurulu</h3>
+                        <ul style="margin-top:10px; list-style:none; color:#ccc;">
+                            <li>• İsim Soyisim (Başkan)</li>
+                            <li>• İsim Soyisim</li>
+                            <li>• İsim Soyisim</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 style="color:var(--accent-blue)">Bilim Kurulu</h3>
+                        <p style="margin-top:10px; color:#ccc;"> kadro listesi burada yer alacak.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="bilimsel-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">Bilimsel Program</h2>
+                <p>Oturumlar ve saatler.</p>
+            </div>
+        </div>
+
+        <div id="kayit-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">Kayıt ve Konaklama</h2>
+                <div class="grid-layout">
+                    <div class="card" style="text-align:center;">
+                        <i class="fas fa-graduation-cap" style="font-size:2rem; color:var(--accent-gold); margin-bottom:15px;"></i>
+                        <h3>Öğrenci</h3>
+                        <p style="font-size:1.5rem; font-weight:bold; margin-top:10px;">500 TL</p>
+                    </div>
+                    <div class="card" style="text-align:center;">
+                        <i class="fas fa-user-md" style="font-size:2rem; color:var(--accent-gold); margin-bottom:15px;"></i>
+                        <h3>Hekim</h3>
+                        <p style="font-size:1.5rem; font-weight:bold; margin-top:10px;">1000 TL</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="konusmacilar-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">Konuşmacılar</h2>
+                <p>Yakında</p>
+            </div>
+        </div>
+
+        <div id="sponsorlar-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">Sponsorlar</h2>
+                <div class="grid-layout">
+                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:100px;">LOGO 1</div>
+                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:100px;">LOGO 2</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="genel-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">Genel Bilgiler</h2>
+                <ul style="margin-left:20px; color:#ddd; line-height:2;">
+                    <li>hgjkbhjkkj</li>
+                    <li>Kkgjlk.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="iletisim-page" class="content-page">
+            <div class="glass-box">
+                <h2 class="page-title">İletişim</h2>
+                <div class="grid-layout">
+                    <div>
+                        <p><i class="fas fa-envelope"></i> info</p>
+                        <p style="margin-top:10px;"><i class="fab fa-instagram"></i> @ivsakonya</p>
+                    </div>
+                    <div style="background:#000; height:150px; display:flex; align-items:center; justify-content:center; border-radius:10px; color:#555;">
+                        HARİTA
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        © 2026 smtl.
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // 1. Önce tüm sayfaları gizle
+            const pages = document.querySelectorAll('.content-page');
+            pages.forEach(page => {
+                page.classList.remove('active'); // 'active' sınıfını sil
+            });
+
+            // 2. İstenen sayfayı göster
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.classList.add('active'); // 'active' sınıfı ekle
+            }
+
+            // 3. Menü linklerindeki aktifliği güncelle (Opsiyonel görsel güzellik)
+            const links = document.querySelectorAll('nav ul li a');
+            links.forEach(link => link.classList.remove('active-btn'));
+
+            // 4. Mobildeysek menüyü kapat
+            const nav = document.getElementById('nav-list');
+            nav.classList.remove('show');
+
+            // 5. Sayfa başına kaydır (Mobil için)
+            window.scrollTo(0,0);
+        }
+
+        function toggleMenu() {
+            const nav = document.getElementById('nav-list');
+            nav.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

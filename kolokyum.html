@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVSA KONYA - II. Veteriner Klinik Bilimleri Kolokyumu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GENEL AYARLAR --- */
+        :root {
+            --primary-dark: #020b16; 
+            --secondary-dark: #0d1b2a;
+            --accent-blue: #00aaff;
+            --accent-gold: #d4af37;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--primary-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- HEADER & MENÜ --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(2, 11, 22, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--text-white);
+        }
+        
+        .logo-img {
+            height: 50px; 
+            margin-right: 15px;
+        }
+
+        /* Masaüstü Menü */
+        nav ul {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-bottom: 5px;
+            color: var(--text-gray);
+            border-bottom: 2px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-blue);
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        /* Hamburger Menü İkonu (Mobilde görünür) */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--text-white);
+            cursor: pointer;
+        }
+
+        /* --- HERO BÖLÜMÜ --- */
+        .hero {
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #1b3a5f 0%, #020b16 70%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 5% 50px 5%; /* Header payı */
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: -webkit-linear-gradient(#fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 20px;
+            width: fit-content;
+        }
+
+        .hero-info span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .hero-image img {
+            max-width: 450px;
+            width: 100%;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.2));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- ORTAK BÖLÜM STİLLERİ --- */
+        section {
+            padding: 80px 5%;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        section:nth-child(even) {
+            background-color: var(--secondary-dark);
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            display: inline-block;
+            border-bottom: 3px solid var(--accent-blue);
+        }
+
+        p.section-desc {
+            color: var(--text-gray);
+            max-width: 800px;
+        }
+
+        /* Örnek İçerik Kutuları */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+        }
+
+        .card i {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+
+        /* --- RESPONSIVE TASARIM --- */
+        @media (max-width: 1024px) {
+            /* Header */
+            header {
+                padding: 15px 20px;
+            }
+
+            .menu-toggle {
+                display: block; /* Hamburgeri göster */
+            }
+
+            nav ul {
+                display: none; /* Menüyü gizle */
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                padding: 20px 0;
+                border-bottom: 1px solid var(--accent-gold);
+                text-align: center;
+            }
+
+            nav ul.active {
+                display: flex; /* Butona basınca göster */
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+
+            /* Hero */
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                justify-content: center;
+                padding-top: 120px;
+                gap: 40px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-info {
+                justify-content: center;
+                margin: 20px auto;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="IVSA Logo" class="logo-img">
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav>
+            <ul id="nav-list">
+                <li><a href="#davet" onclick="toggleMenu()">Davet</a></li>
+                <li><a href="#kurullar" onclick="toggleMenu()">Kurullar</a></li>
+                <li><a href="#bilimsel" onclick="toggleMenu()">Bilimsel Program</a></li>
+                <li><a href="#kayit" onclick="toggleMenu()">Kayıt & Konaklama</a></li>
+                <li><a href="#konusmacilar" onclick="toggleMenu()">Konuşmacılar</a></li>
+                <li><a href="#sponsorlar" onclick="toggleMenu()">Sponsorlar</a></li>
+                <li><a href="#genel" onclick="toggleMenu()">Genel Bilgiler</a></li>
+                <li><a href="#iletisim" onclick="toggleMenu()">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <div class="hero-subtitle">IVSA KONYA</div>
+            <h1 class="hero-title">II. VETERİNER KLİNİK<br>BİLİMLERİ KOLOKYUMU</h1>
+            
+            <div class="hero-info">
+                <span><i class="far fa-calendar-alt" style="color:var(--accent-gold)"></i> 18-19 NİSAN 2026</span>
+                <span><i class="fas fa-map-marker-alt" style="color:var(--accent-gold)"></i> SELÇUK ÜNİVERSİTESİ</span>
+            </div>
+            <div style="margin-top: 20px; color: rgba(255,255,255,0.5); font-size: 1.2rem;">#HerDaimİleri</div>
+        </div>
+
+        <div class="hero-image">
+            <img src="https://via.placeholder.com/500x500/000000/d4af37?text=Asa+Gorseli" alt="Veteriner Sembolü">
+        </div>
+    </section>
+
+    <section id="davet">
+        <div class="section-header">
+            <h2 class="section-title">Davet Mektubu</h2>
+        </div>
+        <p>Değerli Meslektaşlarımız ve Öğrenci Arkadaşlarımız,<br><br>
+        gsghfdhjhjhjhjhhj</p>
+    </section>
+
+    <section id="kurullar">
+        <div class="section-header">
+            <h2 class="section-title">Kurullar</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Düzenleme Kurulu</h3>
+                <p style="font-size:0.9rem; margin-top:10px; color:#ccc;">liste buraya gelecek.</p>
+            </div>
+            <div class="card">
+                <h3>Bilim Kurulu</h3>
+                <p style="font-size:0.9rem; margin-top:10px; color:#ccc;">listesi buraya gelecek.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="bilimsel">
+        <div class="section-header">
+            <h2 class="section-title">Bilimsel Program</h2>
+            <p class="section-desc">program detayları.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+            <h3 style="color:var(--accent-blue)">18 Nisan 2026 - Cumartesi</h3>
+            <ul style="margin-top:15px; padding-left:20px; list-style: disc; color:#ddd;">
+                <li>09:00 - Açılış Töreni</li>
+                <li>10:30 - I. Oturum</li>
+                <li>12:30 - Öğle Arası</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="kayit">
+        <div class="section-header">
+            <h2 class="section-title">Kayıt ve Konaklama</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Öğrenci Kayıt</h3>
+                <p>Erken Kayıt: 508967980 TL</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-user-md"></i>
+                <h3>Hekim Kayıt</h3>
+                <p>Erken Kayıt: 1867009000 TL</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-hotel"></i>
+                <h3>Konaklama</h3>
+                <p>Anlaşmalı Oteller</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="konusmacilar">
+        <div class="section-header">
+            <h2 class="section-title">Konuşmacılar</h2>
+        </div>
+        <p>konusmacılar</p>
+    </section>
+
+    <section id="sponsorlar">
+        <div class="section-header">
+            <h2 class="section-title">Sponsorlar</h2>
+        </div>
+        <div class="grid-container" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+            <div class="card">Logo 1</div>
+            <div class="card">Logo 2</div>
+            <div class="card">Logo 3</div>
+        </div>
+    </section>
+
+    <section id="genel">
+        <div class="section-header">
+            <h2 class="section-title">Genel Bilgiler</h2>
+        </div>
+        <ul style="list-style: none; color: #ddd;">
+            <li style="margin-bottom: 10px;"><i class="fas fa-certificate" style="color:var(--accent-gold); margin-right:10px;"></i> Katılım Sertifikası verilecektir.</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-map-pin" style="color:var(--accent-gold); margin-right:10px;"></i> Kongre Merkezi: Selçuk Üniversitesi Kampüsü</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-language" style="color:var(--accent-gold); margin-right:10px;"></i> Kongre Dili: Türkçe</li>
+        </ul>
+    </section>
+
+    <section id="iletisim" style="background-color: #000;">
+        <div class="section-header">
+            <h2 class="section-title">İletişim</h2>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Bize Ulaşın</h3>
+                <p style="margin-top: 15px; color:#aaa;">Sorularınız için bizimle iletişime geçebilirsiniz.</p>
+                <div style="margin-top: 20px;">
+                    <p><i class="fas fa-envelope" style="color:var(--accent-blue)"></i> info@ivsakonya.org</p>
+                    <p><i class="fab fa-instagram" style="color:var(--accent-blue)"></i> @ivsakonya</p>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <div style="background: #222; height: 200px; display: flex; align-items: center; justify-content: center; color: #555;">
+                    Harita Alanı
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem; color: #666;">
+            © 2026 IVSA Konya. Tüm hakları saklıdır.
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-list');
+            // Menüye 'active' sınıfını ekle veya çıkar
+            if (nav.classList.contains('active')) {
+                nav.classList.remove('active');
+            } else {
+                nav.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
