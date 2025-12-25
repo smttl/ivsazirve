@@ -44,10 +44,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
-            
-            /* Resim Yolu Korundu: back.jpeg */
             background-image: url('back.jpeg'); 
-            
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -57,7 +54,6 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* Arka planı biraz daha kararttım ki şeffaf menüde yazılar net okunsun */
             background: radial-gradient(circle at center, rgba(0, 50, 100, 0.3) 0%, rgba(0, 5, 10, 0.9) 100%);
             z-index: -1;
         }
@@ -68,13 +64,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            
-            /* TAMAMEN ŞEFFAF YAPILDI */
             background: transparent; 
             backdrop-filter: none;
             border-bottom: none; 
-            
-            position: absolute; /* Sticky yerine absolute ile resmin üstüne bindirdik */
+            position: absolute;
             width: 100%;
             top: 0;
             left: 0;
@@ -83,9 +76,10 @@
 
         .logo-container img { height: 55px; cursor: pointer; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
 
-        /* MASAÜSTÜ MENÜ */
+        /* MASAÜSTÜ NAVİGASYON */
         nav ul {
             display: flex;
+            flex-direction: row; /* Masaüstünde yan yana */
             gap: 25px;
             list-style: none !important;
             padding: 0;
@@ -96,14 +90,14 @@
             position: relative;
             font-size: 0.9rem;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.85); /* Hafif şeffaf beyaz */
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             font-weight: 600;
             letter-spacing: 0.5px;
             padding-bottom: 5px;
             transition: all 0.3s ease;
             cursor: pointer;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Yazıların arkasına gölge attık ki resim üstünde okunsun */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         nav ul li a::after {
@@ -114,7 +108,7 @@
             bottom: 0;
             left: 0;
             background-color: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue); /* Çizgi parlaması */
+            box-shadow: 0 0 10px var(--accent-blue);
             transition: width 0.3s ease;
         }
 
@@ -123,13 +117,44 @@
         
         .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-white); cursor: pointer; }
 
+        /* --- YÜKLENİYOR ANİMASYONU --- */
+        .loader-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(51, 173, 255, 0.2);
+        }
+
+        .loading-text {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            letter-spacing: 1px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
         /* --- İÇERİK ALANI --- */
         main {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 5% 40px 5%; /* Header absolute olduğu için padding-top arttırıldı */
+            padding: 100px 5% 40px 5%;
         }
 
         .content-page {
@@ -145,10 +170,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* KUTULAR - Şeffaflık Arttırıldı */
         .glass-box {
-            background: rgba(0, 15, 30, 0.4); /* Daha şeffaf */
-            backdrop-filter: blur(20px);      /* Daha fazla bulanıklık */
+            background: rgba(0, 15, 30, 0.4);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(51, 173, 255, 0.1);
             padding: 40px;
             border-radius: 20px;
@@ -167,7 +191,7 @@
             text-shadow: 0 0 15px rgba(51, 173, 255, 0.3);
         }
 
-        /* --- ANA SAYFA (HERO) --- */
+        /* --- HERO --- */
         #home-page {
             display: flex;
             align-items: center;
@@ -178,161 +202,98 @@
         #home-page.active { display: flex; }
 
         .hero-text { flex: 1; min-width: 300px; padding-right: 20px; }
-        
-        .hero-top-logo {
-             width: 120px;
-             margin-bottom: 20px;
-             filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
-        }
-
-        .hero-title-top {
-            font-size: 2rem;
-            color: var(--accent-blue);
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(51, 173, 255, 0.5);
-        }
-
-        .hero-title-main {
-            font-size: 3.8rem;
-            font-weight: 900;
-            line-height: 1.1;
-            color: #ffffff;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        .hero-year {
-            font-size: 4rem;
-            font-weight: 800;
-            color: var(--accent-blue);
-            display: block;
-            margin-bottom: 30px;
-            text-shadow: 0 0 30px rgba(51, 173, 255, 0.6);
-        }
-
-        .hero-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #eeeeee;
-        }
-
+        .hero-top-logo { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); }
+        .hero-title-top { font-size: 2rem; color: var(--accent-blue); font-weight: 700; letter-spacing: 2px; margin-bottom: 5px; text-shadow: 0 0 10px rgba(51, 173, 255, 0.5); }
+        .hero-title-main { font-size: 3.8rem; font-weight: 900; line-height: 1.1; color: #ffffff; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .hero-year { font-size: 4rem; font-weight: 800; color: var(--accent-blue); display: block; margin-bottom: 30px; text-shadow: 0 0 30px rgba(51, 173, 255, 0.6); }
+        .hero-info { display: flex; align-items: center; gap: 20px; font-size: 1.2rem; font-weight: 600; color: #eeeeee; }
         .hero-info i { color: var(--accent-blue); margin-right: 8px; }
         .hero-info-item { display: flex; align-items: center; }
         .separator { height: 20px; width: 2px; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
-
-        .hashtag {
-            margin-top: 40px;
-            font-size: 2rem;
-            color: #ffffff;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.4);
-        }
-
-        .hero-img-container {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            min-width: 300px;
-            position: relative;
-        }
-
-        .hero-img {
-            max-width: 550px; 
-            width: 100%;
-            border-radius: 50%; 
-            border: 8px solid rgba(255, 255, 255, 0.1); 
-            background: rgba(255,255,255,0.02); 
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            animation: float 6s ease-in-out infinite;
-        }
-
+        .hashtag { margin-top: 40px; font-size: 2rem; color: #ffffff; font-weight: 500; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+        
+        .hero-img-container { flex: 1; display: flex; justify-content: flex-end; min-width: 300px; position: relative; }
+        .hero-img { max-width: 550px; width: 100%; border-radius: 50%; border: 8px solid rgba(255, 255, 255, 0.1); background: rgba(255,255,255,0.02); box-shadow: 0 0 50px rgba(0,0,0,0.5); animation: float 6s ease-in-out infinite; }
         @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-        /* Grid Layout */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
+        /* Grid */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        
+        /* FOOTER (ŞEFFAF) */
+        footer { text-align: center; padding: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.5); background: transparent; border-top: none; position: relative; z-index: 10; }
 
-        .card {
-            background: rgba(255,255,255,0.03);
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
-        }
-        .card:hover {
-            background: rgba(51, 173, 255, 0.1);
-            border-color: var(--accent-blue);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        /* --- FOOTER (ŞEFFAF) --- */
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.5);
-            
-            /* TAMAMEN ŞEFFAF */
-            background: transparent;
-            border-top: none;
-            
-            position: relative;
-            z-index: 10;
-        }
-
-        /* --- MOBİL --- */
+        /* ========================================= */
+        /* MOBİL DÜZENLEMELER (ÖNEMLİ KISIM)         */
+        /* ========================================= */
         @media (max-width: 1024px) {
             html, body { overflow: auto; position: static; height: auto; }
             .fixed-background { background-attachment: fixed; }
 
+            /* Burger Butonu */
             .menu-toggle {
-                display: block; position: fixed; top: 25px; right: 25px; z-index: 10002;
-                background: rgba(0, 13, 26, 0.6); backdrop-filter: blur(5px);
-                width: 45px; height: 45px; line-height: 45px;
-                text-align: center; border-radius: 50%;
-                border: 1px solid rgba(255,255,255,0.1);
+                display: block;
+                position: fixed;
+                top: 25px;
+                right: 25px;
+                z-index: 10002;
+                background: rgba(0, 13, 26, 0.8);
+                backdrop-filter: blur(5px);
+                width: 45px; height: 45px;
+                line-height: 45px;
+                text-align: center;
+                border-radius: 5px;
+                border: 1px solid rgba(255,255,255,0.2);
             }
 
-            /* Mobilde menü açılınca arka planın olması şart, yoksa okunmaz */
+            /* Mobil Menü Listesi */
             nav ul {
-                display: none; flexDirection: column; position: fixed;
-                top: 0; left: 0; width: 100%; height: 100vh;
-                background: rgba(0, 8, 15, 0.98); /* Burası koyu kalmalı */
+                display: none; /* Varsayılan gizli */
+                
+                /* Burası menüyü alt alta dizer */
+                flex-direction: column !important; 
+                
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 8, 15, 0.98); /* Arka planı koyu yap ki yazılar okunsun */
+                
+                /* Dikey ve yatay ortala */
                 justify-content: center;
                 align-items: center;
-                gap: 25px; z-index: 9999;
+                
+                gap: 30px; /* Linkler arası boşluk */
+                z-index: 9999;
+                padding: 0;
+                margin: 0;
             }
-            nav ul.show { display: flex; }
-            nav ul li a { font-size: 1.2rem; }
 
+            /* Menü açıldığında flex olarak görünmesini sağla */
+            nav ul.show {
+                display: flex !important;
+            }
+
+            /* Linklerin fontunu büyüt */
+            nav ul li a {
+                font-size: 1.4rem;
+                display: block;
+            }
+
+            /* Diğer Mobil Ayarlar */
             main { display: block; height: auto; padding-top: 100px; padding-bottom: 40px; }
             .glass-box { max-height: none; overflow: visible; height: auto; margin-bottom: 30px; padding: 25px; }
             .grid-layout { grid-template-columns: 1fr; }
-
-            #home-page { flex-direction: column-reverse; text-align: center; gap: 40px; margin-top: 20px; }
             
+            #home-page { flex-direction: column-reverse; text-align: center; gap: 40px; margin-top: 20px; }
             .hero-top-logo { margin: 0 auto 10px auto; }
             .hero-title-top { font-size: 1.5rem; }
             .hero-title-main { font-size: 2.2rem; }
             .hero-year { font-size: 2.5rem; }
-            
             .hero-img-container { justify-content: center; }
             .hero-img { max-width: 280px; } 
-            
             .hero-info { flex-direction: column; gap: 10px; }
             .separator { display: none; }
-            
             footer { position: relative; width: 100%; padding-bottom: 30px; }
         }
     </style>
@@ -367,24 +328,16 @@
         <div id="home-page" class="content-page active">
             <div class="hero-text">
                 <img src="logo.svg" alt="IVSA" class="hero-top-logo">
-                
                 <div class="hero-title-top">IVSA KONYA</div>
                 <h1 class="hero-title-main">ÇİFTLİK HEKİMLİĞİ<br>ZİRVESİ</h1>
                 <div class="hero-year">2026</div>
-                
                 <div class="hero-info">
-                    <div class="hero-info-item">
-                        <i class="far fa-clock"></i> 11-12 NİSAN
-                    </div>
+                    <div class="hero-info-item"><i class="far fa-clock"></i> 11-12 NİSAN</div>
                     <div class="separator"></div>
-                    <div class="hero-info-item">
-                        <i class="fas fa-map-marker-alt"></i> SELÇUK ÜNİVERSİTESİ
-                    </div>
+                    <div class="hero-info-item"><i class="fas fa-map-marker-alt"></i> SELÇUK ÜNİVERSİTESİ</div>
                 </div>
-                
                 <div class="hashtag">#HerDaimİleri</div>
             </div>
-            
             <div class="hero-img-container">
                 <img src="asa.png" class="hero-img" alt="Zirve Görseli">
             </div>
@@ -405,23 +358,9 @@
         <div id="kurullar-page" class="content-page">
             <div class="glass-box">
                 <h2 class="page-title">Kurullar</h2>
-                <div class="grid-layout">
-                    <div class="card">
-                        <h3 style="color:var(--accent-blue)">Düzenleme Kurulu</h3>
-                        <ul style="margin-top:15px; list-style:none; color:#ccc; line-height: 1.6;">
-                            <li>• İsim Soyisim (Başkan)</li>
-                            <li>• İsim Soyisim</li>
-                            <li>• İsim Soyisim</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3 style="color:var(--accent-blue)">Bilim Kurulu</h3>
-                        <p style="margin-top:15px; color:#ccc; line-height: 1.6;">
-                            Prof. Dr. İsim Soyisim<br>
-                            Prof. Dr. İsim Soyisim<br>
-                            Doç. Dr. İsim Soyisim
-                        </p>
-                    </div>
+                <div class="loader-container">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Kurul listeleri güncelleniyor...</div>
                 </div>
             </div>
         </div>
@@ -429,9 +368,9 @@
         <div id="bilimsel-page" class="content-page">
             <div class="glass-box">
                 <h2 class="page-title">Zirve Programı</h2>
-                <div style="text-align: center; color: #ccc; padding: 40px 0;">
-                    <i class="fas fa-hourglass-half" style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 20px;"></i>
-                    <p style="font-size: 1.2rem;">11-12 Nisan oturum detayları çok yakında açıklanacaktır.</p>
+                <div class="loader-container">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Bilimsel program hazırlanıyor...</div>
                 </div>
             </div>
         </div>
@@ -439,17 +378,9 @@
         <div id="kayit-page" class="content-page">
             <div class="glass-box">
                 <h2 class="page-title">Kayıt Bilgileri</h2>
-                <div class="grid-layout">
-                    <div class="card" style="text-align:center;">
-                        <i class="fas fa-user-graduate" style="font-size:2.5rem; color:var(--accent-blue); margin-bottom:20px;"></i>
-                        <h3 style="font-size: 1.5rem;">Öğrenci</h3>
-                        <p style="font-size:2rem; font-weight:800; margin-top:15px; color:#fff; text-shadow: 0 0 10px rgba(51, 173, 255, 0.5);">750 TL</p>
-                    </div>
-                    <div class="card" style="text-align:center;">
-                        <i class="fas fa-user-md" style="font-size:2.5rem; color:var(--accent-blue); margin-bottom:20px;"></i>
-                        <h3 style="font-size: 1.5rem;">Hekim</h3>
-                        <p style="font-size:2rem; font-weight:800; margin-top:15px; color:#fff; text-shadow: 0 0 10px rgba(51, 173, 255, 0.5);">1500 TL</p>
-                    </div>
+                <div class="loader-container">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Kayıt ve konaklama detayları yakında açıklanacak...</div>
                 </div>
             </div>
         </div>
@@ -457,16 +388,19 @@
         <div id="konusmacilar-page" class="content-page">
             <div class="glass-box">
                 <h2 class="page-title">Konuşmacılar</h2>
-                <p style="color:#ddd;">Yakında.</p>
+                <div class="loader-container">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Konuşmacılarımız çok yakında duyurulacaktır...</div>
+                </div>
             </div>
         </div>
 
         <div id="sponsorlar-page" class="content-page">
             <div class="glass-box">
                 <h2 class="page-title">Sponsorlar</h2>
-                <div class="grid-layout">
-                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:120px; font-weight:bold; color: rgba(255,255,255,0.3);">LOGO ALANI 1</div>
-                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:120px; font-weight:bold; color: rgba(255,255,255,0.3);">LOGO ALANI 2</div>
+                <div class="loader-container">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Sponsorluk çalışmaları devam etmektedir...</div>
                 </div>
             </div>
         </div>
