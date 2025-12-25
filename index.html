@@ -245,6 +245,85 @@
             .glass-box { padding: 25px; }
             footer { position: relative; width: 100%; padding-bottom: 30px; }
         }
+        /* --- DAVET KARTLARI TASARIMI --- */
+.davet-container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 40px; 
+    margin-top: 20px; 
+}
+/* Tek kişi varsa ortalamak için */
+.davet-container.single { 
+    grid-template-columns: 1fr; 
+    max-width: 600px; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+.davet-card { 
+    background: rgba(255, 255, 255, 0.03); 
+    padding: 30px; 
+    border-radius: 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    text-align: center; 
+    transition: transform 0.3s ease; 
+}
+
+.davet-card:hover { 
+    transform: translateY(-5px); 
+    background: rgba(255, 255, 255, 0.06); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+    border-color: var(--accent-blue); 
+}
+
+.img-wrapper { 
+    width: 140px; 
+    height: 140px; 
+    margin: 0 auto 20px auto; 
+    border-radius: 50%; 
+    padding: 5px; 
+    border: 2px solid var(--accent-blue); 
+    background: rgba(255,255,255,0.05); 
+}
+
+.img-wrapper img { 
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%; 
+    object-fit: cover; 
+}
+
+.davet-name { 
+    color: var(--accent-blue); 
+    font-size: 1.4rem; 
+    font-weight: 700; 
+    margin-bottom: 5px; 
+    font-family: var(--font-heading);
+}
+
+.davet-title { 
+    display: block; 
+    font-size: 0.9rem; 
+    color: #aaa; 
+    margin-bottom: 20px; 
+    font-style: italic; 
+    text-transform: uppercase; 
+    font-family: var(--font-heading);
+}
+
+.davet-text { 
+    text-align: left; 
+    color: #ddd; 
+    font-size: 1rem; 
+    line-height: 1.6; 
+}
+
+.davet-text p { margin-bottom: 12px; }
+
+/* Mobilde tek sütuna düşür */
+@media (max-width: 1024px) {
+    .davet-container { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -294,18 +373,57 @@
                 </div>
 
                 <div id="davet-content" class="content-section">
-                    <div class="glass-box">
-                        <h2 class="page-title">Zirve Daveti</h2>
-                        <div class="davet-text">
-                            <p style="line-height: 1.8; color: #ddd; font-size: 1.1rem;">
-                                Değerli Meslektaşlarımız,<br><br>
-                                IVSA Konya olarak düzenlediğimiz <strong>Çiftlik Hekimliği Zirvesi 2026</strong>'da sizleri aramızda görmekten mutluluk duyarız. Sektörün önde gelen isimleriyle çiftlik hekimliğinin geleceğini konuşacağız.
-                                <br><br>
-                                Bilimin ışığında, mesleki dayanışmanın gücüyle...
-                            </p>
-                        </div>
-                    </div>
+    <div class="glass-box">
+        <h2 class="page-title">Davet Mektupları</h2>
+        
+        <div class="davet-container">
+            
+            <div class="davet-card">
+                <div class="img-wrapper">
+                    <img src="h.jpeg" alt="M. Hüdai ÇULHA">
                 </div>
+                <h3 class="davet-name">Arş. Gör. Dr. M. Hüdai ÇULHA</h3>
+                <span class="davet-title">IVSA Konya Akademik Danışmanı</span>
+                
+                <div class="davet-text">
+                    <p>Kıymetli Öğrenciler,</p>
+                    <p>Veteriner hekimlik mesleğinin temel taşlarından biri olan çiftlik hayvanları hekimliği, günümüzde teknolojik gelişmeler ve değişen hayvancılık modelleriyle büyük bir dönüşüm içerisindedir. Bizler, IVSA Konya ekibi olarak, sizleri bu dönüşümün merkezine davet ediyoruz.</p>
+                    <p>11-12 Nisan 2026 tarihlerinde, Selçuk Üniversitesi Veteriner Fakültesi ev sahipliğinde gerçekleştireceğimiz etkinliğimizde; sürdürülebilir ve verimli bir hayvancılığın anahtarı olan önemli konu başlıklarını sizlerle paylaşmaktan büyük mutluluk duyacağız.</p>
+                    <p>İki gün sürecek olan bu yoğun programda alanında uzman akademisyenlerimiz ve tecrübeli veteriner hekimlerimizce şu konular aktarılacaktır:</p>
+                    
+                    <ul class="davet-list">
+                        <li><strong>Sürü Sağlığı ve Koruyucu Hekimlik:</strong> Hastalık gelmeden önlem almanın stratejileri,</li>
+                        <li><strong>Beslenme ve Modern Çiftlik Sistemleri:</strong> Verimliliği artıran yeni nesil yaklaşımlar,</li>
+                        <li><strong>Üreme Yönetimi:</strong> Reprodüktif performansı maksimize edecek güncel teknikler.</li>
+                    </ul>
+
+                    <p>Amacımız, teorik bilgiyi sahanın gerçekleriyle harmanlayarak sizlerin mesleki vizyonuna katkı sağlamak ve geleceğin çiftlik hekimlerini bir araya getirmektir. Bilgi paylaşımının ve mesleki dayanışmanın gücüne inanan tüm öğrencilerimizi bu önemli organizasyonda aramızda görmekten büyük mutluluk duyacağız.</p>
+                    <p>Geleceğin hekimliği için, Selçuk Üniversitesi Veteriner Fakültesi’nin köklü atmosferinde buluşmak dileğiyle.</p>
+                    <p>Saygılarımla,<br>Arş. Gör. Dr. M. Hüdai ÇULHA</p>
+                </div>
+            </div>
+
+            <div class="davet-card">
+                <div class="img-wrapper">
+                    <img src="m.jpeg" alt="Mehmet KAVAKLI">
+                </div>
+                <h3 class="davet-name">Mehmet KAVAKLI</h3>
+                <span class="davet-title">IVSA Konya Başkanı</span>
+                
+                <div class="davet-text">
+                    <p>Değerli Öğrenci Arkadaşlarım,</p>
+                    <p>IVSA Konya ailesi olarak, veteriner hekimlik eğitimimizin en önemli sütunlarından biri olan çiftlik hayvanları hekimliğinde fark yaratacak, ufuk açıcı bir organizasyonu hayata geçirmenin büyük heyecanını yaşıyoruz! 11-12 Nisan 2026 tarihlerinde, Selçuk Üniversitesi’nin ev sahipliğinde gerçekleştireceğimiz bu özel etkinlikte; sadece ders kitaplarındaki bilgileri değil, sahanın gerçek dinamiklerini ve geleceğin modern hayvancılık teknolojilerini konuşacağız.</p>
+                    <p>Zirvemiz boyunca, mesleğimizin duayen isimleri olan akademisyenlerimizin bilimsel rehberliği ile tecrübeli veteriner hekimlerimizin pratik çözüm önerilerini tek bir potada eritiyoruz. Sürü sağlığı yönetimi ve koruyucu hekimlik pratiklerinden, beslenme stratejilerine; modern çiftlik sistemlerinin kurulumundan, üreme ve reprodüktif başarı hikayelerine kadar geniş bir yelpazede, mesleğimizin en kritik noktalarına odaklanacağız.</p>
+                    <p>Amacımız, fakültelerimizde aldığımız teorik eğitimi, sahanın tecrübesiyle harmanlayarak mezuniyet sonrası karşımıza çıkacak zorluklara şimdiden hazır olmak.</p>
+                    <p>Bu etkinlik sadece bir eğitim semineri değil; aynı zamanda Türkiye’nin dört bir yanından gelen veteriner fakültesi öğrencilerinin bir araya geleceği, mesleki dostlukların kurulacağı ve network ağlarımızın güçleneceği bir paylaşım platformudur. Çiftlik hekimliğine ilgi duyan, bu alanda uzmanlaşmak isteyen veya mesleki vizyonunu geliştirmeyi hedefleyen her arkadaşımın bu atmosferi solumasını çok önemsiyoruz.</p>
+                    <p>Gelin, geleceğin çiftlik hekimliğini birlikte inşa edelim, sorularımıza yanıt arayalım ve mesleğimize olan tutkumuzu Selçuk Üniversitesi Veteriner Fakültesi’nin tarihi atmosferinde hep birlikte paylaşalım. IVSA Konya ekibi olarak sizi ve heyecanınızı karşılamak için sabırsızlanıyoruz!</p>
+                    <p>Saygılarımla,<br>Mehmet KAVAKLI</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
                 <div id="kurullar-content" class="content-section">
                     <div class="glass-box">
