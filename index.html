@@ -76,10 +76,8 @@
 
         .logo-container img { height: 55px; cursor: pointer; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
 
-        /* MASAÜSTÜ NAVİGASYON */
         nav ul {
             display: flex;
-            flex-direction: row; /* Masaüstünde yan yana */
             gap: 25px;
             list-style: none !important;
             padding: 0;
@@ -213,7 +211,15 @@
         .hashtag { margin-top: 40px; font-size: 2rem; color: #ffffff; font-weight: 500; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255,255,255,0.4); }
         
         .hero-img-container { flex: 1; display: flex; justify-content: flex-end; min-width: 300px; position: relative; }
-        .hero-img { max-width: 550px; width: 100%; border-radius: 50%; border: 8px solid rgba(255, 255, 255, 0.1); background: rgba(255,255,255,0.02); box-shadow: 0 0 50px rgba(0,0,0,0.5); animation: float 6s ease-in-out infinite; }
+        
+        /* ÇERÇEVESİZ GÖRSEL */
+        .hero-img { 
+            max-width: 550px; 
+            width: 100%; 
+            /* Border ve Background kaldırıldı */
+            filter: drop-shadow(0 0 30px rgba(51, 173, 255, 0.4)); /* Mavi parlama efekti */
+            animation: float 6s ease-in-out infinite; 
+        }
         @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
         /* Grid */
@@ -223,64 +229,28 @@
         /* FOOTER (ŞEFFAF) */
         footer { text-align: center; padding: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.5); background: transparent; border-top: none; position: relative; z-index: 10; }
 
-        /* ========================================= */
-        /* MOBİL DÜZENLEMELER (ÖNEMLİ KISIM)         */
-        /* ========================================= */
+        /* MOBİL */
         @media (max-width: 1024px) {
             html, body { overflow: auto; position: static; height: auto; }
             .fixed-background { background-attachment: fixed; }
 
-            /* Burger Butonu */
             .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 25px;
-                right: 25px;
-                z-index: 10002;
-                background: rgba(0, 13, 26, 0.8);
-                backdrop-filter: blur(5px);
-                width: 45px; height: 45px;
-                line-height: 45px;
-                text-align: center;
-                border-radius: 5px;
+                display: block; position: fixed; top: 25px; right: 25px; z-index: 10002;
+                background: rgba(0, 13, 26, 0.8); backdrop-filter: blur(5px);
+                width: 45px; height: 45px; line-height: 45px; text-align: center; border-radius: 5px;
                 border: 1px solid rgba(255,255,255,0.2);
             }
 
-            /* Mobil Menü Listesi */
             nav ul {
-                display: none; /* Varsayılan gizli */
-                
-                /* Burası menüyü alt alta dizer */
-                flex-direction: column !important; 
-                
-                position: fixed;
-                top: 0; left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(0, 8, 15, 0.98); /* Arka planı koyu yap ki yazılar okunsun */
-                
-                /* Dikey ve yatay ortala */
-                justify-content: center;
-                align-items: center;
-                
-                gap: 30px; /* Linkler arası boşluk */
-                z-index: 9999;
-                padding: 0;
-                margin: 0;
+                display: none; 
+                flex-direction: column !important; /* Alt Alta */
+                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+                background: rgba(0, 8, 15, 0.98); 
+                justify-content: center; align-items: center; gap: 30px; z-index: 9999;
             }
+            nav ul.show { display: flex !important; }
+            nav ul li a { font-size: 1.3rem; }
 
-            /* Menü açıldığında flex olarak görünmesini sağla */
-            nav ul.show {
-                display: flex !important;
-            }
-
-            /* Linklerin fontunu büyüt */
-            nav ul li a {
-                font-size: 1.4rem;
-                display: block;
-            }
-
-            /* Diğer Mobil Ayarlar */
             main { display: block; height: auto; padding-top: 100px; padding-bottom: 40px; }
             .glass-box { max-height: none; overflow: visible; height: auto; margin-bottom: 30px; padding: 25px; }
             .grid-layout { grid-template-columns: 1fr; }
@@ -304,7 +274,7 @@
 
     <header>
         <div class="logo-container" onclick="showPage('home-page')">
-            <img src="logo2.PNG" alt="Logo">
+            <img src="logo.svg" alt="Logo">
         </div>
         
         <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
@@ -339,7 +309,7 @@
                 <div class="hashtag">#HerDaimİleri</div>
             </div>
             <div class="hero-img-container">
-                <img src="asa.PNG" class="hero-img" alt="Zirve Görseli">
+                <img src="asa.png" class="hero-img" alt="Zirve Görseli">
             </div>
         </div>
 
