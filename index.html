@@ -74,7 +74,19 @@
             z-index: 1000;
         }
 
-        .logo-container img { height: 55px; cursor: pointer; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        /* Yeni Kod */
+.logo-container img {
+    height: 90px; /* Burayı 55px'ten 90px'e çıkardık. İsteğe göre 120px vs. yapabilirsin */
+    width: auto;  /* Genişliğin orantılı artmasını sağlar */
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition: transform 0.3s ease; /* Ufak bir hover efekti için hazırlık */
+}
+
+/* İstersen üzerine gelince hafif büyüme efekti de ekleyebiliriz */
+.logo-container img:hover {
+    transform: scale(1.05);
+}
 
         nav ul {
             display: flex;
@@ -274,7 +286,7 @@
 
     <header>
         <div class="logo-container" onclick="showPage('home-page')">
-            <img src="logo.svg" alt="Logo">
+            <img src="logo2.png" alt="Logo">
         </div>
         
         <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
