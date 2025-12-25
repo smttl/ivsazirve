@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N8YRYRPWVM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-N8YRYRPWVM');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N8YRYRPWVM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-N8YRYRPWVM');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IVSA KONYA - II. Veteriner Klinik Bilimleri Kolokyumu</title>
+    <title>IVSA KONYA - Çiftlik Hekimliği Zirvesi 2026</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -21,11 +19,11 @@
     <style>
         /* --- AYARLAR --- */
         :root {
-            --bg-dark: #020b16; 
-            --accent-blue: #00aaff;
-            --accent-gold: #d4af37;
+            --bg-dark: #000d1a;
+            --accent-blue: #33adff;
+            --accent-glow: #005c99;
             --text-white: #ffffff;
-            --text-gray: #b0b0b0;
+            --text-gray: #cfd8dc;
             --font-main: 'Montserrat', sans-serif;
         }
 
@@ -41,13 +39,13 @@
             flex-direction: column;
         }
 
-        /* --- ARKA PLAN (SABİT KALIR) --- */
+        /* --- ARKA PLAN --- */
         .fixed-background {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             
-            /* RESİM */
+            /* Resim Yolu Korundu: back.jpeg */
             background-image: url('back.jpeg'); 
             
             background-size: cover;
@@ -59,30 +57,36 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 11, 22, 0.4); 
+            /* Arka planı biraz daha kararttım ki şeffaf menüde yazılar net okunsun */
+            background: radial-gradient(circle at center, rgba(0, 50, 100, 0.3) 0%, rgba(0, 5, 10, 0.9) 100%);
             z-index: -1;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (ŞEFFAF) --- */
         header {
-            padding: 15px 5%;
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(2, 11, 22, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky;
+            
+            /* TAMAMEN ŞEFFAF YAPILDI */
+            background: transparent; 
+            backdrop-filter: none;
+            border-bottom: none; 
+            
+            position: absolute; /* Sticky yerine absolute ile resmin üstüne bindirdik */
+            width: 100%;
             top: 0;
+            left: 0;
             z-index: 1000;
         }
 
-        .logo-container img { height: 45px; cursor: pointer; }
+        .logo-container img { height: 55px; cursor: pointer; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
 
         /* MASAÜSTÜ MENÜ */
         nav ul {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             list-style: none !important;
             padding: 0;
             margin: 0;
@@ -90,16 +94,16 @@
 
         nav ul li a {
             position: relative;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            color: var(--text-gray);
+            color: rgba(255, 255, 255, 0.85); /* Hafif şeffaf beyaz */
             text-decoration: none;
             font-weight: 600;
             letter-spacing: 0.5px;
             padding-bottom: 5px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
-            white-space: nowrap;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Yazıların arkasına gölge attık ki resim üstünde okunsun */
         }
 
         nav ul li a::after {
@@ -109,11 +113,12 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: var(--accent-gold);
+            background-color: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-blue); /* Çizgi parlaması */
             transition: width 0.3s ease;
         }
 
-        nav ul li a:hover { color: var(--text-white); }
+        nav ul li a:hover { color: #ffffff; }
         nav ul li a:hover::after { width: 100%; }
         
         .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-white); cursor: pointer; }
@@ -124,43 +129,45 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 5%;
+            padding: 100px 5% 40px 5%; /* Header absolute olduğu için padding-top arttırıldı */
         }
 
         .content-page {
             display: none;
             width: 100%;
             max-width: 1200px;
-            animation: fadeUp 0.6s ease;
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .content-page.active { display: block; }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Buzlu Cam Kutular */
+        /* KUTULAR - Şeffaflık Arttırıldı */
         .glass-box {
-            background: rgba(10, 20, 35, 0.6);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 15, 30, 0.4); /* Daha şeffaf */
+            backdrop-filter: blur(20px);      /* Daha fazla bulanıklık */
+            border: 1px solid rgba(51, 173, 255, 0.1);
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
         h2.page-title {
             font-size: 2rem;
-            color: var(--accent-gold);
+            color: var(--accent-blue);
             margin-bottom: 25px;
             font-weight: 700;
-            border-bottom: 2px solid rgba(0, 170, 255, 0.3);
+            border-bottom: 2px solid rgba(51, 173, 255, 0.3);
             display: inline-block;
             padding-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(51, 173, 255, 0.3);
         }
 
-        /* --- ANA SAYFA --- */
+        /* --- ANA SAYFA (HERO) --- */
         #home-page {
             display: flex;
             align-items: center;
@@ -170,41 +177,62 @@
         }
         #home-page.active { display: flex; }
 
-        .hero-text { flex: 1; min-width: 300px; }
+        .hero-text { flex: 1; min-width: 300px; padding-right: 20px; }
         
-        .hero-logo {
-            max-width: 250px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 25px;
-            display: block;
+        .hero-top-logo {
+             width: 120px;
+             margin-bottom: 20px;
+             filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
+        .hero-title-top {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(51, 173, 255, 0.5);
+        }
+
+        .hero-title-main {
+            font-size: 3.8rem;
+            font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 30px;
-            text-transform: uppercase;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(0,0,0,0.5); 
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .hero-year {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            display: block;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(51, 173, 255, 0.6);
         }
 
         .hero-info {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            gap: 20px;
             font-size: 1.2rem;
-            font-weight: 500;
-            border-left: 4px solid var(--accent-gold);
-            padding-left: 20px;
+            font-weight: 600;
+            color: #eeeeee;
         }
+
+        .hero-info i { color: var(--accent-blue); margin-right: 8px; }
+        .hero-info-item { display: flex; align-items: center; }
+        .separator { height: 20px; width: 2px; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
 
         .hashtag {
             margin-top: 40px;
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.7);
-            font-weight: 300;
+            font-size: 2rem;
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.4);
         }
 
         .hero-img-container {
@@ -212,18 +240,22 @@
             display: flex;
             justify-content: flex-end;
             min-width: 300px;
+            position: relative;
         }
 
         .hero-img {
-            max-width: 650px; 
+            max-width: 550px; 
             width: 100%;
-            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3));
-            animation: float 5s ease-in-out infinite;
+            border-radius: 50%; 
+            border: 8px solid rgba(255, 255, 255, 0.1); 
+            background: rgba(255,255,255,0.02); 
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-        /* Grid */
+        /* Grid Layout */
         .grid-layout {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -231,125 +263,77 @@
         }
 
         .card {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
             padding: 25px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1px solid rgba(255,255,255,0.05);
             transition: 0.3s;
         }
         .card:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--accent-gold);
+            background: rgba(51, 173, 255, 0.1);
+            border-color: var(--accent-blue);
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
+        /* --- FOOTER (ŞEFFAF) --- */
         footer {
             text-align: center;
-            padding: 25px;
-            font-size: 0.85rem;
+            padding: 20px;
+            font-size: 0.9rem;
             color: rgba(255,255,255,0.5);
-            border-top: 1px solid rgba(255,255,255,0.1);
+            
+            /* TAMAMEN ŞEFFAF */
+            background: transparent;
+            border-top: none;
+            
+            position: relative;
+            z-index: 10;
         }
 
-        /* ========================================= */
-        /* MOBİL UYUMLULUK (STANDART KAYDIRMA)      */
-        /* ========================================= */
+        /* --- MOBİL --- */
         @media (max-width: 1024px) {
-            
-            /* 1. App modunu iptal et, normal kaydırmayı aç */
-            html, body {
-                overflow: auto;
-                position: static;
-                height: auto;
-            }
+            html, body { overflow: auto; position: static; height: auto; }
+            .fixed-background { background-attachment: fixed; }
 
-            /* Arka planı sabitle (Parallax etkisi) */
-            .fixed-background {
-                background-attachment: fixed;
-                background-size: cover;
-                background-position: center;
-            }
-
-            /* 2. Menü */
             .menu-toggle {
-
-                display: block;
-                position: fixed; /* Ekrana çiviler */
-                top: 20px;       /* Yukarıdan boşluk */
-                right: 20px;     /* Sağdan boşluk */
-                z-index: 10002;  /* Menünün de üstünde kalsın */
-                
-                /* Butonun arka planı olsun ki karışmasın */
-                background: rgba(2, 11, 22, 0.8);
-                width: 45px;
-                height: 45px;
-                line-height: 45px;
-                text-align: center;
-                border-radius: 5px;
-                border: 1px solid rgba(255,255,255,0.2);
-                
+                display: block; position: fixed; top: 25px; right: 25px; z-index: 10002;
+                background: rgba(0, 13, 26, 0.6); backdrop-filter: blur(5px);
+                width: 45px; height: 45px; line-height: 45px;
+                text-align: center; border-radius: 50%;
+                border: 1px solid rgba(255,255,255,0.1);
             }
+
+            /* Mobilde menü açılınca arka planın olması şart, yoksa okunmaz */
             nav ul {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px; left: 0; width: 100%;
-                background: rgba(2, 11, 22, 0.98);
-                padding: 20px 0;
-                border-bottom: 2px solid var(--accent-gold);
-                text-align: center;
-                gap: 15px;
-                z-index: 9999;
+                display: none; flexDirection: column; position: fixed;
+                top: 0; left: 0; width: 100%; height: 100vh;
+                background: rgba(0, 8, 15, 0.98); /* Burası koyu kalmalı */
+                justify-content: center;
+                align-items: center;
+                gap: 25px; z-index: 9999;
             }
             nav ul.show { display: flex; }
+            nav ul li a { font-size: 1.2rem; }
 
-            /* 3. Ana İçerik Alanı */
-            main {
-                display: block; /* Flex'i kaldır, normal akış olsun */
-                height: auto;
-                min-height: 100vh;
-                padding-top: 20px;
-                padding-bottom: 80px; /* Footer payı */
-            }
+            main { display: block; height: auto; padding-top: 100px; padding-bottom: 40px; }
+            .glass-box { max-height: none; overflow: visible; height: auto; margin-bottom: 30px; padding: 25px; }
+            .grid-layout { grid-template-columns: 1fr; }
 
-            /* 4. İçerik Kutusu */
-            .glass-box {
-                /* Yükseklik sınırını kaldır, ne kadar yazı varsa o kadar uzasın */
-                max-height: none; 
-                overflow: visible; 
-                height: auto;
-                margin-bottom: 30px; /* Altına boşluk bırak */
-            }
-
-            /* 5. Izgara (Mobilde Alt Alta) */
-            .grid-layout {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            /* 6. Ana Sayfa */
-            #home-page {
-                flex-direction: column-reverse;
-                text-align: center;
-                gap: 30px;
-                margin-top: 30px;
-            }
+            #home-page { flex-direction: column-reverse; text-align: center; gap: 40px; margin-top: 20px; }
             
-            .hero-logo { margin: 0 auto 10px auto; max-width: 180px; }
-            .hero-title { font-size: 2rem; }
+            .hero-top-logo { margin: 0 auto 10px auto; }
+            .hero-title-top { font-size: 1.5rem; }
+            .hero-title-main { font-size: 2.2rem; }
+            .hero-year { font-size: 2.5rem; }
+            
             .hero-img-container { justify-content: center; }
-            .hero-img { max-width: 250px; } 
-            .hero-info { border-left: none; align-items: center; }
-
-            /* 7. Footer (Altta Sabit) */
-            footer {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background: rgba(2, 11, 22, 0.95);
-                z-index: 100;
-            }
+            .hero-img { max-width: 280px; } 
+            
+            .hero-info { flex-direction: column; gap: 10px; }
+            .separator { display: none; }
+            
+            footer { position: relative; width: 100%; padding-bottom: 30px; }
         }
     </style>
 </head>
@@ -369,11 +353,10 @@
                 <li><a onclick="showPage('home-page')">Ana Sayfa</a></li>
                 <li><a onclick="showPage('davet-page')">Davet</a></li>
                 <li><a onclick="showPage('kurullar-page')">Kurullar</a></li>
-                <li><a onclick="showPage('bilimsel-page')">Bilimsel Program</a></li>
-                <li><a onclick="showPage('kayit-page')">Kayıt & Konaklama</a></li>
+                <li><a onclick="showPage('bilimsel-page')">Program</a></li>
+                <li><a onclick="showPage('kayit-page')">Kayıt</a></li>
                 <li><a onclick="showPage('konusmacilar-page')">Konuşmacılar</a></li>
                 <li><a onclick="showPage('sponsorlar-page')">Sponsorlar</a></li>
-                <li><a onclick="showPage('genel-page')">Genel Bilgiler</a></li>
                 <li><a onclick="showPage('iletisim-page')">İletişim</a></li>
             </ul>
         </nav>
@@ -383,26 +366,38 @@
         
         <div id="home-page" class="content-page active">
             <div class="hero-text">
-                <img src="logo.svg" alt="IVSA Konya Logo" class="hero-logo">
-                <h1 class="hero-title">IVSA KONYA<br>II. VETERİNER KLİNİK<br>BİLİMLERİ KOLOKYUMU</h1>
+                <img src="logo.svg" alt="IVSA" class="hero-top-logo">
+                
+                <div class="hero-title-top">IVSA KONYA</div>
+                <h1 class="hero-title-main">ÇİFTLİK HEKİMLİĞİ<br>ZİRVESİ</h1>
+                <div class="hero-year">2026</div>
+                
                 <div class="hero-info">
-                    <span><i class="far fa-calendar-alt" style="color:var(--accent-gold); margin-right:10px;"></i> 18-19 NİSAN 2026</span>
-                    <span><i class="fas fa-map-marker-alt" style="color:var(--accent-gold); margin-right:10px;"></i> SELÇUK ÜNİVERSİTESİ</span>
+                    <div class="hero-info-item">
+                        <i class="far fa-clock"></i> 11-12 NİSAN
+                    </div>
+                    <div class="separator"></div>
+                    <div class="hero-info-item">
+                        <i class="fas fa-map-marker-alt"></i> SELÇUK ÜNİVERSİTESİ
+                    </div>
                 </div>
-              <div class="hashtag">#HerDaimİleri</div>
+                
+                <div class="hashtag">#HerDaimİleri</div>
             </div>
+            
             <div class="hero-img-container">
-                <img src="asa.png" class="hero-img" alt="Sembol">
+                <img src="asa.png" class="hero-img" alt="Zirve Görseli">
             </div>
         </div>
 
         <div id="davet-page" class="content-page">
             <div class="glass-box">
-                <h2 class="page-title">Davet Mektubu</h2>
-                <p style="line-height: 1.8; color: #ddd;">
+                <h2 class="page-title">Zirve Daveti</h2>
+                <p style="line-height: 1.8; color: #ddd; font-size: 1.1rem;">
                     Değerli Meslektaşlarımız,<br><br>
-                    IVSA Konya olarak düzenlediğimiz II. Veteriner Klinik Bilimleri Kolokyumu'nda sizleri aramızda görmekten mutluluk duyarız.
-                       <br><br>
+                    IVSA Konya olarak düzenlediğimiz <strong>Çiftlik Hekimliği Zirvesi 2026</strong>'da sizleri aramızda görmekten mutluluk duyarız. Sektörün önde gelen isimleriyle çiftlik hekimliğinin geleceğini konuşacağız.
+                    <br><br>
+                    Bilimin ışığında, mesleki dayanışmanın gücüyle...
                 </p>
             </div>
         </div>
@@ -413,7 +408,7 @@
                 <div class="grid-layout">
                     <div class="card">
                         <h3 style="color:var(--accent-blue)">Düzenleme Kurulu</h3>
-                        <ul style="margin-top:10px; list-style:none; color:#ccc;">
+                        <ul style="margin-top:15px; list-style:none; color:#ccc; line-height: 1.6;">
                             <li>• İsim Soyisim (Başkan)</li>
                             <li>• İsim Soyisim</li>
                             <li>• İsim Soyisim</li>
@@ -421,7 +416,11 @@
                     </div>
                     <div class="card">
                         <h3 style="color:var(--accent-blue)">Bilim Kurulu</h3>
-                        <p style="margin-top:10px; color:#ccc;">Akademik kadro listesi.</p>
+                        <p style="margin-top:15px; color:#ccc; line-height: 1.6;">
+                            Prof. Dr. İsim Soyisim<br>
+                            Prof. Dr. İsim Soyisim<br>
+                            Doç. Dr. İsim Soyisim
+                        </p>
                     </div>
                 </div>
             </div>
@@ -429,24 +428,27 @@
 
         <div id="bilimsel-page" class="content-page">
             <div class="glass-box">
-                <h2 class="page-title">Bilimsel Program</h2>
-                <p style="color:#ddd;">Oturum detayları.</p>
+                <h2 class="page-title">Zirve Programı</h2>
+                <div style="text-align: center; color: #ccc; padding: 40px 0;">
+                    <i class="fas fa-hourglass-half" style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 20px;"></i>
+                    <p style="font-size: 1.2rem;">11-12 Nisan oturum detayları çok yakında açıklanacaktır.</p>
+                </div>
             </div>
         </div>
 
         <div id="kayit-page" class="content-page">
             <div class="glass-box">
-                <h2 class="page-title">Kayıt ve Konaklama</h2>
+                <h2 class="page-title">Kayıt Bilgileri</h2>
                 <div class="grid-layout">
                     <div class="card" style="text-align:center;">
-                        <i class="fas fa-graduation-cap" style="font-size:2rem; color:var(--accent-gold); margin-bottom:15px;"></i>
-                        <h3>Öğrenci</h3>
-                        <p style="font-size:1.5rem; font-weight:bold; margin-top:10px;">500 TL</p>
+                        <i class="fas fa-user-graduate" style="font-size:2.5rem; color:var(--accent-blue); margin-bottom:20px;"></i>
+                        <h3 style="font-size: 1.5rem;">Öğrenci</h3>
+                        <p style="font-size:2rem; font-weight:800; margin-top:15px; color:#fff; text-shadow: 0 0 10px rgba(51, 173, 255, 0.5);">750 TL</p>
                     </div>
                     <div class="card" style="text-align:center;">
-                        <i class="fas fa-user-md" style="font-size:2rem; color:var(--accent-gold); margin-bottom:15px;"></i>
-                        <h3>Hekim</h3>
-                        <p style="font-size:1.5rem; font-weight:bold; margin-top:10px;">1000 TL</p>
+                        <i class="fas fa-user-md" style="font-size:2.5rem; color:var(--accent-blue); margin-bottom:20px;"></i>
+                        <h3 style="font-size: 1.5rem;">Hekim</h3>
+                        <p style="font-size:2rem; font-weight:800; margin-top:15px; color:#fff; text-shadow: 0 0 10px rgba(51, 173, 255, 0.5);">1500 TL</p>
                     </div>
                 </div>
             </div>
@@ -463,19 +465,9 @@
             <div class="glass-box">
                 <h2 class="page-title">Sponsorlar</h2>
                 <div class="grid-layout">
-                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:100px;">LOGO 1</div>
-                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:100px;">LOGO 2</div>
+                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:120px; font-weight:bold; color: rgba(255,255,255,0.3);">LOGO ALANI 1</div>
+                    <div class="card" style="display:flex; align-items:center; justify-content:center; height:120px; font-weight:bold; color: rgba(255,255,255,0.3);">LOGO ALANI 2</div>
                 </div>
-            </div>
-        </div>
-
-        <div id="genel-page" class="content-page">
-            <div class="glass-box">
-                <h2 class="page-title">Genel Bilgiler</h2>
-                <ul style="margin-left:20px; color:#ddd; line-height:2;">
-                    <li>Kongre dili Türkçedir.</li>
-                    <li>Katılım sertifikası verilecektir.</li>
-                </ul>
             </div>
         </div>
 
@@ -484,11 +476,11 @@
                 <h2 class="page-title">İletişim</h2>
                 <div class="grid-layout">
                     <div>
-                        <p><i class="fas fa-envelope" style="color:var(--accent-blue)"></i> info@ivsakonya.org</p>
-                        <p style="margin-top:10px;"><i class="fab fa-instagram" style="color:var(--accent-blue)"></i> @ivsakonya</p>
+                        <p style="font-size: 1.2rem; margin-bottom: 15px;"><i class="fas fa-envelope" style="color:var(--accent-blue); width: 30px;"></i> info@ivsakonya.org</p>
+                        <p style="font-size: 1.2rem;"><i class="fab fa-instagram" style="color:var(--accent-blue); width: 30px;"></i> @ivsakonya</p>
                     </div>
-                    <div style="background:#000; height:150px; display:flex; align-items:center; justify-content:center; border-radius:10px; color:#555;">
-                        HARİTA
+                    <div style="background: rgba(0,0,0,0.5); height:200px; display:flex; align-items:center; justify-content:center; border-radius:10px; color:#777; border:1px solid rgba(255,255,255,0.1);">
+                        <i class="fas fa-map-marked-alt" style="margin-right: 10px;"></i> HARİTA YERLEŞİMİ
                     </div>
                 </div>
             </div>
@@ -496,7 +488,7 @@
 
     </main>
 
-    <footer>© 2026 smtl.</footer>
+    <footer>© 2026 IVSA KONYA | #HerDaimİleri</footer>
 
     <script>
         function showPage(pageId) {
