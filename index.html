@@ -649,6 +649,15 @@ footer {
             
             // 3. Menüyü kapat
             document.getElementById('nav-list').classList.remove('show');
+
+            // --- GOOGLE ANALYTICS TAKİP KODU (YENİ) ---
+            // Eğer gtag yüklüyse, Google'a hangi sayfaya geçildiğini bildir.
+            if (typeof gtag === 'function') {
+                gtag('event', 'sayfa_goruntuleme', {
+                    'page_title': contentId.replace('-content', '').toUpperCase(), // Örn: DAVET, KURULLAR
+                    'page_location': contentId
+                });
+            }
             
             // 4. OTOMATİK KAYDIRMA
             if (contentId === 'home-content') {
